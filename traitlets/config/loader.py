@@ -4,7 +4,7 @@
 # Copyright (c) IPython Development Team.
 # Distributed under the terms of the Modified BSD License.
 
-import argparse
+import argcomplete, argparse
 import copy
 import functools as fnt
 import os
@@ -57,6 +57,8 @@ class ArgumentParser(argparse.ArgumentParser):
         return super(ArgumentParser, self).print_help(file)
 
     print_help.__doc__ = argparse.ArgumentParser.print_help.__doc__
+
+# ArgumentParser = argparse.ArgumentParser
 
 #-----------------------------------------------------------------------------
 # Config class for holding config information
@@ -813,6 +815,7 @@ class ArgParseConfigLoader(CommandLineConfigLoader):
     def _create_parser(self, aliases=None, flags=None, classes=None):
         self.parser = ArgumentParser(*self.parser_args, **self.parser_kw)
         self._add_arguments(aliases, flags, classes)
+        argcomplete.autocomplete(self.parser)
 
     def _parse_config_traits(self):
         for cls in self.classes:

@@ -676,7 +676,7 @@ class Application(SingletonConfigurable):
         if self.subcommands and len(argv) > 0:
             # we have subcommands, and one may have been specified
             subc, subargv = argv[0], argv[1:]
-            if re.match(r'^\w(\-?\w)*$', subc) and subc in self.subcommands:
+            if re.match(r'^\w(?:-?\w)*$', subc) and subc in self.subcommands:
                 # it's a subcommand, and *not* a flag or class parameter
                 return self.initialize_subcommand(subc, subargv)
 
